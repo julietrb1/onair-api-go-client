@@ -352,6 +352,24 @@ func (api *OnAirAPI) GetCompanyFleet(companyID string) (*[]models.CompanyFleetAi
 	return &apiResp.Content, nil
 }
 
+// GetCompanyFlights gets flights registered by a company, including airborne time, max. bank, and XP earned.
+func (api *OnAirAPI) GetCompanyFlights(companyID string) (*[]models.Flight, error) {
+	url := fmt.Sprintf("%s/v1/company/%s/flights", onAirBaseURL, companyID)
+
+	resp, err := getResponse(url, api)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var apiResp OAResponse[[]models.Flight]
+	if err := json.NewDecoder(resp.Body).Decode(&apiResp); err != nil {
+		return nil, fmt.Errorf("error decoding response: %w", err)
+	}
+
+	return &apiResp.Content, nil
+}
+
 func getResponse(url string, api *OnAirAPI) (*http.Response, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
