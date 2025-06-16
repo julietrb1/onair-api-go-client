@@ -388,6 +388,24 @@ func (api *OnAirAPI) GetCompanyIncomeStatement(companyID string) (*models.Compan
 	return &apiResp.Content, nil
 }
 
+// GetCompanyCompletedJobs gets completed job information for a company.
+func (api *OnAirAPI) GetCompanyCompletedJobs(companyID string) (*[]models.CompanyJob, error) {
+	url := fmt.Sprintf("%s/v1/company/%s/jobs/completed", onAirBaseURL, companyID)
+
+	resp, err := getResponse(url, api)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var apiResp OAResponse[[]models.CompanyJob]
+	if err := json.NewDecoder(resp.Body).Decode(&apiResp); err != nil {
+		return nil, fmt.Errorf("error decoding response: %w", err)
+	}
+
+	return &apiResp.Content, nil
+}
+
 func getResponse(url string, api *OnAirAPI) (*http.Response, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
