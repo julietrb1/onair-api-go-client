@@ -1,6 +1,6 @@
 # OnAir API Go Client
 
-A Go client library for interacting with the [OnAir](https://www.onair.company) API. OnAir is a proprietary commercial flight simulation and management platform that provides a realistic airline management experience.
+An unofficial Go client library for interacting with the [OnAir](https://www.onair.company) API. OnAir is a proprietary commercial flight simulation and management platform that provides a realistic airline management experience.
 
 ## Installation
 
@@ -89,4 +89,6 @@ You need an OnAir API key to use this client. Provide it when calling `NewOnAirA
 
 ## License
 
-See [LICENSE](LICENSE).
+See [LICENSE](LICENSE). I do not represent OnAir - this contribution is a work of passion only.
+
+Please note that while the code and documentation of this project are licensed on their own, the concepts and the data pulled from [OnAir](https://www.onair.company) are proprietary and subject to [OnAir's terms and conditions](https://www.onair.company/terms-conditions/).
