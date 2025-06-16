@@ -169,15 +169,15 @@ func (api *OnAirAPI) GetCompanyIncomeStatement(companyID string) (*models.Compan
 }
 
 // GetCompanyCompletedJobs gets completed job information for a company.
-func (api *OnAirAPI) GetCompanyCompletedJobs(companyID string) (*[]models.CompanyJob, error) {
+func (api *OnAirAPI) GetCompanyCompletedJobs(companyID string) (*[]models.Job, error) {
 	url := fmt.Sprintf("%s/v1/company/%s/jobs/completed", onAirBaseURL, companyID)
-	return getResponse[[]models.CompanyJob](url, api)
+	return getResponse[[]models.Job](url, api)
 }
 
 // GetCompanyPendingJobs gets pending job information for a company.
-func (api *OnAirAPI) GetCompanyPendingJobs(companyID string) (*[]models.CompanyJob, error) {
+func (api *OnAirAPI) GetCompanyPendingJobs(companyID string) (*[]models.Job, error) {
 	url := fmt.Sprintf("%s/v1/company/%s/jobs/pending", onAirBaseURL, companyID)
-	return getResponse[[]models.CompanyJob](url, api)
+	return getResponse[[]models.Job](url, api)
 }
 
 // GetCompanyMissionFlightTracks gets pairs of missions and flights for a company.
@@ -199,6 +199,12 @@ func (api *OnAirAPI) GetCompanyNotifications(companyID string) (*[]models.Compan
 func (api *OnAirAPI) GetEmployee(employeeID string) (*models.Employee, error) {
 	url := fmt.Sprintf("%s/v1/employee/%s", onAirBaseURL, employeeID)
 	return getResponse[models.Employee](url, api)
+}
+
+// GetFBOJobs gets all jobs available at an FBO.
+func (api *OnAirAPI) GetFBOJobs(fboID string) (*[]models.Job, error) {
+	url := fmt.Sprintf("%s/v1/fbo/%s/jobs", onAirBaseURL, fboID)
+	return getResponse[[]models.Job](url, api)
 }
 
 func getResponse[T any](url string, api *OnAirAPI) (*T, error) {

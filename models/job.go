@@ -1,6 +1,6 @@
 package models
 
-type CompanyJob struct {
+type Job struct {
 	ID                              string      `json:"Id"`
 	WorldID                         string      `json:"WorldId"`
 	MissionTypeID                   string      `json:"MissionTypeId"`
