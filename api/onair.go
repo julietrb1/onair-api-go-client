@@ -244,6 +244,24 @@ func (api *OnAirAPI) GetCompany(companyID string) (*models.Company, error) {
 	return &apiResp.Content, nil
 }
 
+// GetCompanyBalanceSheet gets a company's accounting information relating to assets and liabilities.
+func (api *OnAirAPI) GetCompanyBalanceSheet(companyID string) (*models.CompanyBalanceSheet, error) {
+	url := fmt.Sprintf("%s/v1/company/%s/balancesheet", onAirBaseURL, companyID)
+
+	resp, err := getResponse(url, api)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var apiResp OAResponse[models.CompanyBalanceSheet]
+	if err := json.NewDecoder(resp.Body).Decode(&apiResp); err != nil {
+		return nil, fmt.Errorf("error decoding response: %w", err)
+	}
+
+	return &apiResp.Content, nil
+}
+
 func getResponse(url string, api *OnAirAPI) (*http.Response, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
