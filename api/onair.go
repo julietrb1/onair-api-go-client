@@ -192,6 +192,15 @@ func (api *OnAirAPI) GetCompanyNotifications(companyID string) (*[]models.Compan
 	return getResponse[[]models.CompanyNotification](url, api)
 }
 
+// TODO: Implement /company/<id>/workorders
+// TODO: Implement /company/<id>/workorders/<aircraftid>
+
+// GetEmployee gets an employee's information including salaries, home airport, and fatigue.
+func (api *OnAirAPI) GetEmployee(employeeID string) (*models.Employee, error) {
+	url := fmt.Sprintf("%s/v1/employee/%s", onAirBaseURL, employeeID)
+	return getResponse[models.Employee](url, api)
+}
+
 func getResponse[T any](url string, api *OnAirAPI) (*T, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
