@@ -262,6 +262,24 @@ func (api *OnAirAPI) GetCompanyBalanceSheet(companyID string) (*models.CompanyBa
 	return &apiResp.Content, nil
 }
 
+// GetCompanyCashFlow gets a company's transaction information including amounts, people involved, the relevant account, and more.
+func (api *OnAirAPI) GetCompanyCashFlow(companyID string) (*models.CompanyCashFlow, error) {
+	url := fmt.Sprintf("%s/v1/company/%s/cashflow", onAirBaseURL, companyID)
+
+	resp, err := getResponse(url, api)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var apiResp OAResponse[models.CompanyCashFlow]
+	if err := json.NewDecoder(resp.Body).Decode(&apiResp); err != nil {
+		return nil, fmt.Errorf("error decoding response: %w", err)
+	}
+
+	return &apiResp.Content, nil
+}
+
 func getResponse(url string, api *OnAirAPI) (*http.Response, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
