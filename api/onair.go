@@ -207,6 +207,12 @@ func (api *OnAirAPI) GetFBOJobs(fboID string) (*[]models.Job, error) {
 	return getResponse[[]models.Job](url, api)
 }
 
+// GetFlight gets a flight including airborne time, max. bank, and XP earned.
+func (api *OnAirAPI) GetFlight(flightID string) (*models.Flight, error) {
+	url := fmt.Sprintf("%s/v1/flight/%s", onAirBaseURL, flightID)
+	return getResponse[models.Flight](url, api)
+}
+
 func getResponse[T any](url string, api *OnAirAPI) (*T, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
