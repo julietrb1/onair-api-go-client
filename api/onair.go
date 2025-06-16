@@ -185,6 +185,13 @@ func (api *OnAirAPI) GetCompanyMissionFlightTracks(companyID string) (*[]models.
 	url := fmt.Sprintf("%s/v1/company/%s/missionflighttracks", onAirBaseURL, companyID)
 	return getResponse[[]models.CompanyMissionFlightTrack](url, api)
 }
+
+// GetCompanyNotifications gets notifications posted for a company.
+func (api *OnAirAPI) GetCompanyNotifications(companyID string) (*[]models.CompanyNotification, error) {
+	url := fmt.Sprintf("%s/v1/company/%s/notifications", onAirBaseURL, companyID)
+	return getResponse[[]models.CompanyNotification](url, api)
+}
+
 func getResponse[T any](url string, api *OnAirAPI) (*T, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
