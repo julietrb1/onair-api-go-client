@@ -174,6 +174,12 @@ func (api *OnAirAPI) GetCompanyCompletedJobs(companyID string) (*[]models.Compan
 	return getResponse[[]models.CompanyJob](url, api)
 }
 
+// GetCompanyPendingJobs gets pending job information for a company.
+func (api *OnAirAPI) GetCompanyPendingJobs(companyID string) (*[]models.CompanyJob, error) {
+	url := fmt.Sprintf("%s/v1/company/%s/jobs/pending", onAirBaseURL, companyID)
+	return getResponse[[]models.CompanyJob](url, api)
+}
+
 func getResponse[T any](url string, api *OnAirAPI) (*T, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
