@@ -20,8 +20,8 @@ type Company struct {
 	UseSmallAirports                   bool    `json:"UseSmallAirports"`
 	UseOnlyVanillaAirports             bool    `json:"UseOnlyVanillaAirports"`
 	EnableSkillTree                    bool    `json:"EnableSkillTree"`
-	CheckrideLevel                     int     `json:"CheckrideLevel"`
-	EnableLandingPenalities            bool    `json:"EnableLandingPenalities"`
+	CheckRideLevel                     int     `json:"CheckrideLevel"`
+	EnableLandingPenalties             bool    `json:"EnableLandingPenalities"`
 	EnableEmployeesFlightDutyAndSleep  bool    `json:"EnableEmployeesFlightDutyAndSleep"`
 	AircraftRentLevel                  int     `json:"AircraftRentLevel"`
 	EnableCargosAndChartersLoadingTime bool    `json:"EnableCargosAndChartersLoadingTime"`
