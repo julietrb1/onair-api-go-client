@@ -190,7 +190,7 @@ func (api *OnAirAPI) GetAircraftEconomicDetails(aircraftID string) (*models.Airc
 	return &apiResp.Content, nil
 }
 
-// GetAircraftFlights gets all flights that a given aircraft has performed.
+// GetAircraftFlights gets all flights that an aircraft has performed.
 func (api *OnAirAPI) GetAircraftFlights(aircraftID string, startIndex int, limit int) (*models.AircraftEconomicDetails, error) {
 	url := fmt.Sprintf("%s/v1/aircraft/%s/flights?startIndex=%d&limit=%d", onAirBaseURL, aircraftID, startIndex, limit)
 
@@ -201,6 +201,24 @@ func (api *OnAirAPI) GetAircraftFlights(aircraftID string, startIndex int, limit
 	defer resp.Body.Close()
 
 	var apiResp OAResponse[models.AircraftEconomicDetails]
+	if err := json.NewDecoder(resp.Body).Decode(&apiResp); err != nil {
+		return nil, fmt.Errorf("error decoding response: %w", err)
+	}
+
+	return &apiResp.Content, nil
+}
+
+// GetAircraftMaintenanceCosts gets repair, engine replacement, inspection, and checkup costs for an aircraft.
+func (api *OnAirAPI) GetAircraftMaintenanceCosts(aircraftID string) (*models.AircraftMaintenanceCosts, error) {
+	url := fmt.Sprintf("%s/v1/aircraft/%s/maintenance_costs", onAirBaseURL, aircraftID)
+
+	resp, err := getResponse(url, api)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	var apiResp OAResponse[models.AircraftMaintenanceCosts]
 	if err := json.NewDecoder(resp.Body).Decode(&apiResp); err != nil {
 		return nil, fmt.Errorf("error decoding response: %w", err)
 	}
