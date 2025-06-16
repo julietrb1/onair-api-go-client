@@ -180,6 +180,11 @@ func (api *OnAirAPI) GetCompanyPendingJobs(companyID string) (*[]models.CompanyJ
 	return getResponse[[]models.CompanyJob](url, api)
 }
 
+// GetCompanyMissionFlightTracks gets pairs of missions and flights for a company.
+func (api *OnAirAPI) GetCompanyMissionFlightTracks(companyID string) (*[]models.CompanyMissionFlightTrack, error) {
+	url := fmt.Sprintf("%s/v1/company/%s/missionflighttracks", onAirBaseURL, companyID)
+	return getResponse[[]models.CompanyMissionFlightTrack](url, api)
+}
 func getResponse[T any](url string, api *OnAirAPI) (*T, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
