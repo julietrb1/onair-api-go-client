@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-const onAirBaseURL = "https://server1.models.company/api"
+const onAirBaseURL = "https://server1.onair.company/api"
 const onAirAuthHeaderName = "oa-apikey"
 
 // OnAirAPI encapsulates the OnAir API client
